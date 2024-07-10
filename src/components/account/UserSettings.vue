@@ -13,13 +13,20 @@
 
 <script setup lang="ts">
 import { useUserStore } from '@/stores/user'
-import { ref } from 'vue'
+import { onMounted, ref } from 'vue'
 import UserSettingsModal from '@/components/account/UserSettingsModal.vue'
 import LoginForm from '@/components/account/LoginForm.vue'
+import EventBus from '@/utils/bus'
 
 const userStore = useUserStore()
 const isUserSettingsModalShown = ref(false)
 const showModal = () => {
     isUserSettingsModalShown.value = true
 }
+
+onMounted(() => {
+    EventBus.on('closeModal', function () {
+        isUserSettingsModalShown.value = false
+    })
+})
 </script>

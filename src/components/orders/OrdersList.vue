@@ -14,7 +14,14 @@
             <tbody>
             <tr v-for="order in orderStore.orders.slice(sliceStart, sliceEnd)" :key="order.uuid"
                 class="border-b odd:bg-white even:bg-blue-100">
-                <td class="py-2">{{ order.uuid }}</td>
+                <td class="py-2">
+                    <span
+                        class="w-full hover:text-blue-600 hover:underline cursor-pointer"
+                        @click="showOrder(order.uuid)"
+                    >
+                        {{ order.uuid }}
+                    </span>
+                </td>
                 <td class="py-2">
                     <OrderStatusBadge :status="order.order_status[0].title" />
                 </td>
@@ -28,7 +35,6 @@
             <div>
                 <span class="text-sm text-gray-400 mx-4">Rows per page: </span>
                 <select v-model="rowsPerPage">
-                    <option value="2">2</option>
                     <option value="5">5</option>
                     <option value="10">10</option>
                     <option value="25">25</option>
@@ -62,27 +68,25 @@ import OrderStatusBadge from '@/components/orders/OrderStatusBadge.vue'
 import _ from 'lodash'
 import OrdersService from '@/services/Http/OrdersService'
 import { onMounted, ref, watch } from 'vue'
+import { useRouter } from 'vue-router'
+import EventBus from '@/utils/bus'
+
+const router = useRouter()
+const orderStore = useOrderStore()
 
 const sliceStart = ref(0)
 const sliceEnd = ref(5)
 const rowsPerPage = ref(5)
 const currentPage = ref(1)
 
-const orderStore = useOrderStore()
 watch(rowsPerPage, async (newValue, oldValue) => {
     currentPage.value = Math.max(
         1,
         Math.min(currentPage.value > orderStore.orders.length / newValue
-            ?  orderStore.orders.length / newValue : currentPage.value, orderStore.orders.length / newValue)
+            ? orderStore.orders.length / newValue : currentPage.value, orderStore.orders.length / newValue)
     )
     sliceEnd.value = currentPage.value * rowsPerPage.value
     sliceStart.value = sliceEnd.value - rowsPerPage.value
-    console.log('Old Value: ', oldValue)
-    console.log('New Value: ', newValue)
-    console.log('Current Page: ',  currentPage.value)
-    console.log('Slice Start: ',  sliceStart.value)
-    console.log('Slice End: ',  sliceEnd.value)
-
 })
 const getUserOrders = () => {
     if (_.isEmpty(orderStore.orders)) {
@@ -93,7 +97,6 @@ const getUserOrders = () => {
         })
     }
 }
-
 const previous = () => {
     currentPage.value = currentPage.value - 1 > 0 ? currentPage.value - 1 : 1
     sliceEnd.value = rowsPerPage.value * currentPage.value
@@ -105,6 +108,10 @@ const next = () => {
         : currentPage.value + 1
     sliceEnd.value = rowsPerPage.value * currentPage.value
     sliceStart.value = sliceEnd.value - rowsPerPage.value
+}
+const showOrder = (orderUuid) => {
+    EventBus.emit('closeModal')
+    router.push({path: `/order/${orderUuid}` })
 }
 
 onMounted(() => {
