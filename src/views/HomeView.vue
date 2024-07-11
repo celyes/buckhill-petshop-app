@@ -4,6 +4,6 @@ import CategoriesList from '@/components/categories/CategoriesList.vue'
 
 <template>
   <div>
-   <CategoriesList />
+    <CategoriesList />
   </div>
 </template>

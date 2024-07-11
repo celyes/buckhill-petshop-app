@@ -4,7 +4,7 @@ import { env } from '@/envinronment'
 const config = {
   baseURL: env.api,
   headers: {
-    'Accept': 'application/json'
+    Accept: 'application/json'
   }
 }
 
@@ -31,20 +31,22 @@ const attachBearerTokenFromStorage = async (config?: object) => {
 http.interceptors.request.use(attachBearerTokenFromStorage(config))
 
 // refreshes tokens in case response returns 403 or 401.
-http.interceptors.response.use((response) => {
-  return response
-}, async function(error) {
-  /**
-   * Refresh the access token in case of a request failure...
-   * const originalRequest = error.config
-   *   if (error.response.status === 401 && !originalRequest._retry) {
-   *     originalRequest._retry = true
-   *     await refreshToken()
-   *     return http(originalRequest)
-   *   }
-   */
-  return Promise.reject(error)
-})
+http.interceptors.response.use(
+  (response) => {
+    return response
+  },
+  async function (error) {
+    /**
+     * Refresh the access token in case of a request failure...
+     * const originalRequest = error.config
+     *   if (error.response.status === 401 && !originalRequest._retry) {
+     *     originalRequest._retry = true
+     *     await refreshToken()
+     *     return http(originalRequest)
+     *   }
+     */
+    return Promise.reject(error)
+  }
+)
 
 export default http
-

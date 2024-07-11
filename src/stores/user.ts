@@ -10,23 +10,22 @@ export const useUserStore = defineStore('user', {
   actions: {
     async login(data): object {
       try {
-        const response = await http.post(
-          '/user/login',
-          {
-            email: data.email,
-            password: data.password
-          })
+        const response = await http.post('/user/login', {
+          email: data.email,
+          password: data.password
+        })
         return response.data
       } catch (e) {
         console.log(e)
       }
     },
     logout(): void {
-      http.get('/user/logout')
+      http
+        .get('/user/logout')
         .then(() => {
           this.$reset()
         })
-        .catch(e => {
+        .catch((e) => {
           console.log(e)
         })
     }

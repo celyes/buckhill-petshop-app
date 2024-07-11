@@ -17,5 +17,5 @@ export const useProductStore = defineStore('product', {
       }
     }
   },
-  persist: true,
+  persist: true
 })

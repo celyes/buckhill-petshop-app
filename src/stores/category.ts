@@ -1,9 +1,9 @@
 import { defineStore } from 'pinia'
 
 export const useCategoryStore = defineStore('category', {
-  state: ()  => ({
+  state: () => ({
     categories: [],
     products: {}
   }),
-  persist: true,
+  persist: true
 })

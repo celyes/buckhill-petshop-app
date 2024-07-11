@@ -2,9 +2,9 @@ import axios from 'axios'
 import Errors from '@/utils/errors'
 
 class Form {
-  private originalData: { [key: string]: any }
+  private originalData: { [key: string]: any };
 
-  [key: string]: any;
+  [key: string]: any
 
   errors: Errors
 
@@ -105,11 +105,11 @@ class Form {
         url: url,
         data: this.data()
       })
-        .then(response => {
+        .then((response) => {
           this.onSuccess(response.data)
           resolve(response.data)
         })
-        .catch(error => {
+        .catch((error) => {
           this.onFail(error.response.data)
           reject(error.response.data)
         })

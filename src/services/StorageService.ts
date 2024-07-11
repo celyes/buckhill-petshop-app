@@ -10,11 +10,11 @@ class Storage {
    * @returns {*} the value correspondent to the provided key
    */
   get(keys: object) {
-    return new Promise( (resolve, reject) => {
+    return new Promise((resolve, reject) => {
       try {
         const item = this.container.getItem(keys)
         resolve(item)
-      } catch(e) {
+      } catch (e) {
         reject(e)
       }
     })
@@ -28,10 +28,17 @@ class Storage {
    */
   set(value, callback = () => {}) {
     return new Promise((resolve, reject) => {
-      this.container?.setItem(values.keys, value.value)
-        .then(() => { callback() })
-        .then(r => { resolve(r) })
-        .catch(e => { reject(e) })
+      this.container
+        ?.setItem(values.keys, value.value)
+        .then(() => {
+          callback()
+        })
+        .then((r) => {
+          resolve(r)
+        })
+        .catch((e) => {
+          reject(e)
+        })
     })
   }
 
@@ -44,10 +51,17 @@ class Storage {
    */
   remove(keys, callback = () => {}) {
     return new Promise((resolve, reject) => {
-      this.container.removeItem(keys)
-        .then(() => { callback() })
-        .then(r => { resolve(r) })
-        .catch(e => { reject(e) })
+      this.container
+        .removeItem(keys)
+        .then(() => {
+          callback()
+        })
+        .then((r) => {
+          resolve(r)
+        })
+        .catch((e) => {
+          reject(e)
+        })
     })
   }
 }

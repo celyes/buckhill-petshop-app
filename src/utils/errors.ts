@@ -1,5 +1,5 @@
 class Errors {
-  private errors: { [key: string]: string[] } = {};
+  private errors: { [key: string]: string[] } = {}
 
   /**
    * Create a new Errors instance.
@@ -13,7 +13,7 @@ class Errors {
    * @returns {boolean}
    */
   has(field: string): boolean {
-    return this.errors.hasOwnProperty(field);
+    return this.errors.hasOwnProperty(field)
   }
 
   /**
@@ -22,7 +22,7 @@ class Errors {
    * @returns {boolean}
    */
   any(): boolean {
-    return Object.keys(this.errors).length > 0;
+    return Object.keys(this.errors).length > 0
   }
 
   /**
@@ -33,7 +33,7 @@ class Errors {
    */
   get(field: string): string | undefined {
     if (this.errors[field]) {
-      return this.errors[field][0];
+      return this.errors[field][0]
     }
   }
 
@@ -43,7 +43,7 @@ class Errors {
    * @param {object} errors
    */
   record(errors: { [key: string]: string[] }): void {
-    this.errors = errors;
+    this.errors = errors
   }
 
   /**
@@ -53,11 +53,11 @@ class Errors {
    */
   clear(field?: string): void {
     if (field) {
-      delete this.errors[field];
-      return;
+      delete this.errors[field]
+      return
     }
-    this.errors = {};
+    this.errors = {}
   }
 }
 
-export default Errors;
+export default Errors
