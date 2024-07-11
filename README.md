@@ -1,45 +1,33 @@
-# petshop
+# Petshop App
 
-This template should help get you started developing with Vue 3 in Vite.
+This app is a task provided by Buckhill company. 
 
-## Recommended IDE Setup
 
-[VSCode](https://code.visualstudio.com/) + [Volar](https://marketplace.visualstudio.com/items?itemName=Vue.volar) (and disable Vetur).
+### Running the project
 
-## Type Support for `.vue` Imports in TS
-
-TypeScript cannot handle type information for `.vue` imports by default, so we replace the `tsc` CLI with `vue-tsc` for type checking. In editors, we need [Volar](https://marketplace.visualstudio.com/items?itemName=Vue.volar) to make the TypeScript language service aware of `.vue` types.
-
-## Customize configuration
-
-See [Vite Configuration Reference](https://vitejs.dev/config/).
-
-## Project Setup
-
-```sh
-npm install
-```
-
-### Compile and Hot-Reload for Development
-
-```sh
+To run the project, simply execute the following commands:
+```shell
+npm install  # only the first time 
 npm run dev
 ```
 
-### Type-Check, Compile and Minify for Production
+This will spawn up a local development server on the port 5173 (http://localhost:5173)
 
-```sh
-npm run build
-```
+> [!NOTE]
+> While this app may seem incomplete, it is expected in the confluence page to not code every route, page and component.
 
-### Run Unit Tests with [Vitest](https://vitest.dev/)
+### Folder structure:
+We'll focus on the `src` folder since it's the one containing the source code.
 
-```sh
-npm run test:unit
-```
-
-### Lint with [ESLint](https://eslint.org/)
-
-```sh
-npm run lint
-```
+| folder / file name | type   | purpose                                                                                                                |
+|--------------------|--------|------------------------------------------------------------------------------------------------------------------------|
+| assets             | folder | Contains static assets like CSS files                                                                                  |
+| components         | folder | Contains all the components needed in the app that are not standalone pages                                            |
+| router             | folder | Contains routing files                                                                                                 |
+| services           | folder | Contains some code extracted into services instead of directly writing them in the Vue components                      |
+| stores             | folder | Contains Pinia state management stores                                                                                 |
+| utils              | folder | Contains different utility files                                                                                       |
+| views              | folder | Contains the application views. Each component represents a web page that has a route (path) and a name                |
+|App.vue| file   | The main component. This is where routing and navigation is embedded                                                   |
+|environment.ts| file   | This file contains all the environment variables necessary for the app to run correctly.                               |
+|main.ts| file   | The main entrypoint of the app. This is where Vue is initiated. This is also where Vue plugins are used and configured |
